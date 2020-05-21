@@ -28,11 +28,9 @@ class Action(object):
 	def __str__(self):
 		className = self.organism.__class__.__name__
 		choice = {
-			ActionEnum.A_ADD: '{0}: Dodany w punkcie: {1}'.format(className, self.position),
+			ActionEnum.A_ADD: '{0}: add at: {1}'.format(className, self.position),
 			ActionEnum.A_INCREASEPOWER: '{0} increase power: {1}'.format(className, self.value),
-			ActionEnum.A_MOVE: '{0} Przemieścił się z punktu: {1} do punktu: {2}'.format(className, self.organism.position, self.position),
-			ActionEnum.A_REMOVE: '{0} Usunięty z : {1}'.format(className, self.organism.position)
+			ActionEnum.A_MOVE: '{0} move form: {1} to: {2}'.format(className, self.organism.position, self.position),
+			ActionEnum.A_REMOVE: '{0} remove form: {1}'.format(className, self.organism.position)
 		}
 		return choice[self.action]
-
-
