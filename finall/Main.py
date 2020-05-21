@@ -4,14 +4,15 @@ from Organisms.Grass import Grass
 from Organisms.Sheep import Sheep
 from Organisms.Dandelion import Dandelion
 from Organisms.Wolf import Wolf
-from Organisms.Antylopa import Antylopa
-from Organisms.Zolw import Zolw
 from Organisms.Toadstool import Toadstool
-from Organisms.Kosmita import Kosmita
+from Organisms.Antelope import Antelope
+from Organisms.Turtle import Turtle
+from Organisms.Ufo import Ufo
+
 import os
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
 	pyWorld = World(8, 8)
 
 	newOrg = Grass(position=Position(xPosition=4, yPosition=0), world=pyWorld)
@@ -29,85 +30,40 @@ if __name__ == '__main__':
 	newOrg = Toadstool(position=Position(xPosition=4, yPosition=4), world=pyWorld)
 	pyWorld.addOrganism(newOrg)
 
-	newOrg = Antylopa(position=Position(xPosition=7, yPosition=4), world=pyWorld)
+	newOrg = Turtle(position=Position(xPosition=6, yPosition=7), world=pyWorld)
 	pyWorld.addOrganism(newOrg)
 
-	newOrg = Zolw(position=Position(xPosition=6, yPosition=2), world=pyWorld)
+	newOrg = Ufo(position=Position(xPosition=5, yPosition=5), world=pyWorld)
 	pyWorld.addOrganism(newOrg)
 
-	newOrg = Kosmita(position=Position(xPosition=5, yPosition=2), world=pyWorld)
+	newOrg = Antelope(position=Position(xPosition=3, yPosition=2), world=pyWorld)
 	pyWorld.addOrganism(newOrg)
-
-	skrot={
-		'Antylopa':"A",
-		'Dendelion':"D",
-		'Grass':"G",
-		'Kosmita':"K",
-		'Sheep':"S",
-		'Toadstool':"T",
-		'Wolf':"W",
-		'Zolw':"Z"
-
-	}
-
-	def DodajAntylope(pyWorld, x, y):
-		return Antylopa(position=Position(xPosition=x, yPosition=y), world=pyWorld)
-	def DodajDandelion(pyWorld, x, y):
-		return Dandelion(position=Position(xPosition=x, yPosition=y), world=pyWorld)
-	def DodajWilka(pyWorld, x, y):
-		return Wolf(position=Position(xPosition=x, yPosition=y), world=pyWorld)
-	def DodajZolwia(pyWorld, x, y):
-		return Zolw(position=Position(xPosition=x, yPosition=y), world=pyWorld)
-	def DodajToadstool(pyWorld, x, y):
-		return Toadstool(position=Position(xPosition=x, yPosition=y), world=pyWorld)
-	def DodajSheep(pyWorld, x, y):
-		return Sheep(position=Position(xPosition=x, yPosition=y), world=pyWorld)
-	def DodajGrass(pyWorld, x, y):
-		return Grass(position=Position(xPosition=x, yPosition=y), world=pyWorld)
-	def stworzNoweIstoty(pyworld, addOrganism, position):
-		lives={
-			'D':DodajDandelion,
-			'A':DodajAntylope,
-			'W':DodajWilka,
-			'Z':DodajZolwia,
-			'T':DodajToadstool,
-			'S':DodajSheep,
-			'G':DodajGrass
-		}
-
-	def add():
-		print("Jeśli chcesz dodać organizm kliknij T")
-		print("Jeśli chcesz przejść do następnej rundy kliknij ENTER")
-		if(input()=="T"):
-			print("Podaj organizm jaki chcesz dodać: ")
-			for key, value in skrot.items():
-				print("Aby dodać "+key+" wpisz "+skrot[key])
-			addOrganism=input().upper()
-			print("Podaj x i y z zakresu:(0-7,0-7)")
-			x=input()
-			x=int(x)
-			y=input()
-			y=int(y)
-
-			position = Position(int(x), int(y))
-			if pyWorld.positionOnBoard(position):
-				if pyWorld.getOrganismFromPosition((position)):
-					stworzNoweIstoty(addOrganism, position)
-				else:
-					print("nie możesz tutaj stworzyć nowego organizmu")
-					info()
-			else:
-				print("nie dodano organizmu")
-
-
 
 	print(pyWorld)
 
 	for _ in range(0, 100):
-		input('')
 		os.system('cls')
 		pyWorld.makeTurn()
 		print(pyWorld)
-		add()
-
-
+		answer = input("Czy chcesz dodać organizm?")
+		print()
+		if answer == "tak":
+			print("1. Antelope")
+			print('2. Dandelion')
+			print('3. Grass')
+			print('4. Sheep')
+			print('5. Toadstool')
+			print('6. Turtle')
+			print('7. Ufo')
+			print('8. Wolf')
+			organism = int(input("Wybierz organizm z wyżej podanych:"))
+			if isinstance(organism, int) and organism >=1  and organism <= 8:
+				print("Lista pozycji możliwych do użycia:")
+				print(pyWorld.showAllFreePositions())
+				print("Gdzie dodać organizm?")
+				positionX = int(input("x = "))
+				positionY = int(input("y = "))
+				if (positionX, positionY) in pyWorld.showAllFreePositions():
+					pyWorld.userAddOrganism(organism, Position(xPosition=positionX, yPosition=positionY))
+				else:
+					print("Podane wsółrzędne są już zajęte. Organizm nie został dodany")
