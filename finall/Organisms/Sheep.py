@@ -18,3 +18,5 @@ class Sheep(Animal):
 
 	def getNeighboringPositions(self):
 		return self.world.filterPositionsWithoutAnimals(self.world.getNeighboringPositions(self.position))
+
+	
