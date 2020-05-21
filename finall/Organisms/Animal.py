@@ -51,3 +51,4 @@ class Animal(Organism):
 
 	def getNeighboringBirthPositions(self):
 		return self.world.filterFreePositions(self.world.getNeighboringPositions(self.position))
+	
